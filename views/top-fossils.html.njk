@@ -7,14 +7,28 @@
     <div class="fossil-div">
       
       {%for fossil in fossils %}
-      <div style="background-color: beige">
-        <h3>{{name}} {{ fossil.name }}</h3>
+      <div>
+        <h3>{{name}} this is a {{ fossil.name }}</h3>
         <h2>Liked {{ fossil.num_likes }} times.</h2>
         <img src="{{ fossil.img }}" />
       </div>
       {%endfor%}
     </div>
+    <form action="/like-fossil" method="post">
     
+    <div id="myDropdown" class="dropdown-content">
+        
+         <label for="language">Select a Fossil:</label>
+<select name="language" id="language">
+  <option value="Australopithecus">Australopithecus</option>
+  <option value="Quetzal">Quetzal</option>
+  <option value="Stegosaurus">Stegosaurus</option>
+  <option value="Tyrannosaurus Rex" selected>Tyrannosaurus Rex</option>
+  <input type="submit">
+</select>
+        
+    </div>
+    </form>
     
  
   {%endblock%}

@@ -68,7 +68,12 @@ const OTHER_FOSSILS = [
 // TODO: Replace this comment with your code
 
 app.get('/top-fossils', (req, res) => {
-  res.render('top-fossils.html.njk', { fossils: Object.values(MOST_LIKED_FOSSILS) });
+let name = req.session.name
+
+  
+
+
+  res.render('top-fossils.html.njk', { fossils: Object.values(MOST_LIKED_FOSSILS), name });
   
 });
 
@@ -84,11 +89,19 @@ app.post('/get-name', (req,res)=>{
     res.redirect('/top-fossils')
 })
 
+app.post('/like-fossil', (req,res)=>{
+  
+  
+  res.render('newBase.html.njk')
+})
+
 app.get('/random-fossil.json', (req, res) => {
   const randomFossil = lodash.sample(OTHER_FOSSILS);
   res.json(randomFossil);
 });
 
+
 ViteExpress.listen(app, port, () => {
   console.log(`Server running on http://localhost:${port}...`);
 });
+
