@@ -1,0 +1,21 @@
+ {%extends 'base.html.njk'%}
+ 
+ 
+ {%block body%}
+ <h1>Welcome, {{ name }}</h1>
+ <a class="btn btn-primary" href="/home-page">Home Page</a>
+    <div class="fossil-div">
+      
+      {%for fossil in fossils %}
+      <div style="background-color: beige">
+        <h3>{{name}} {{ fossil.name }}</h3>
+        <h2>Liked {{ fossil.num_likes }} times.</h2>
+        <img src="{{ fossil.img }}" />
+      </div>
+      {%endfor%}
+    </div>
+    
+    
+ 
+  {%endblock%}
+
