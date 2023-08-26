@@ -1,35 +1,31 @@
- {%extends 'base.html.njk'%}
+{%extends 'base.html.njk'%}
  
  
- {%block body%}
- <h1>Welcome, {{ name }}</h1>
- <a class="btn btn-primary" href="/home-page">Home Page</a>
-    <div class="fossil-div">
-      
-      {%for fossil in fossils %}
+{%block body%}
+  <h1>Welcome, {{ name }}</h1>
+  <a class="btn btn-primary" href="/home-page">Home Page</a>
+  <div class="fossil-div">
+    {%for fossil in fossils %}
       <div>
         <h3>{{name}} this is a {{ fossil.name }}</h3>
         <h2>Liked {{ fossil.num_likes }} times.</h2>
         <img src="{{ fossil.img }}" />
       </div>
-      {%endfor%}
-    </div>
-    <form action="/like-fossil" method="post">
-    
-    <div id="myDropdown" class="dropdown-content">
+    {%endfor%}
+  </div>
+  <form action="/like-fossil" method="post">
+
+    <div id="myDropdown" class="dropdown-content">   
+      <label for="fossilName">Select a Fossil:</label>
+      <select name="fossilName" id="fossilName">
+        {%for fossil in  fossils %}
+          <option value="{{ fossil.ID }}">{{fossil.name}}</option>
+          
+        {%endfor%}
+      </select>
+      <input type="submit">
         
-         <label for="language">Select a Fossil:</label>
-<select name="language" id="language">
-  <option value="Australopithecus">Australopithecus</option>
-  <option value="Quetzal">Quetzal</option>
-  <option value="Stegosaurus">Stegosaurus</option>
-  <option value="Tyrannosaurus Rex" selected>Tyrannosaurus Rex</option>
-  <input type="submit">
-</select>
-        
     </div>
-    </form>
-    
- 
-  {%endblock%}
+  </form> 
+{%endblock%}
 

@@ -5,6 +5,7 @@ import morgan from 'morgan';
 import nunjucks from 'nunjucks';
 import ViteExpress from 'vite-express';
 
+
 const app = express();
 const port = '8000';
 
@@ -68,17 +69,26 @@ const OTHER_FOSSILS = [
 // TODO: Replace this comment with your code
 
 app.get('/top-fossils', (req, res) => {
-let name = req.session.name
-
-  
-
-
-  res.render('top-fossils.html.njk', { fossils: Object.values(MOST_LIKED_FOSSILS), name });
+  let name = req.session.name
+  if(!req.session.name){
+    res.redirect('/home-page')
+  }else{
+    for(let key in MOST_LIKED_FOSSILS){
+      MOST_LIKED_FOSSILS[key].ID = key;
+    }
+    res.render('top-fossils.html.njk', { fossils: Object.values(MOST_LIKED_FOSSILS), name,});
+  }
   
 });
 
 app.get('/home-page',(req,res) => {
-  res.render('homepage.html.njk')
+
+  if(req.session.name){
+    res.redirect('/top-fossils')
+  }else{
+    res.render('homepage.html.njk')
+  }
+ 
   
 })
 
@@ -90,14 +100,20 @@ app.post('/get-name', (req,res)=>{
 })
 
 app.post('/like-fossil', (req,res)=>{
-  
-  
-  res.render('newBase.html.njk')
+  let fossilId = req.body.fossilName;
+  let name = req.session.name
+
+  MOST_LIKED_FOSSILS[fossilId].num_likes +=1;
+
+res.render('thank-you.html.njk', { fossils: Object.values(MOST_LIKED_FOSSILS), name,})
 })
+
+
 
 app.get('/random-fossil.json', (req, res) => {
   const randomFossil = lodash.sample(OTHER_FOSSILS);
   res.json(randomFossil);
+
 });
 
 
